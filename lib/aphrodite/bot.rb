@@ -1,7 +1,9 @@
 require "aphrodite/bot/version"
+require "olimpo"
 
 module Aphrodite
   module Bot
-    # Your code goes here...
+    extend Olimpo
+    autoload :VisualRecognizer, 'aphrodite/bot/visual_recognizer'
   end
 end
