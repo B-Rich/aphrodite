@@ -13,6 +13,7 @@ module Aphrodite
 
 
         parsed_response = JSON.parse(response.body)
+
         return Aphrodite::Bot::VisualRecognizer::Response.new(parsed_response) if response.success?
 
         raise_exception(response.code, response.body)
@@ -23,8 +24,6 @@ module Aphrodite
                         body: params,
                         headers: default_visual_recognizer_headers.merge(headers),
                         query: default_visual_recognizer_options.merge(options))
-
-
 
         parsed_response = JSON.parse(response.body)
         return Aphrodite::Bot::VisualRecognizer::Response.new(parsed_response) if response.success?
