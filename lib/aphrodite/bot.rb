@@ -6,5 +6,6 @@ module Aphrodite
     extend Olimpo
     autoload :VisualRecognizer, 'aphrodite/bot/visual_recognizer'
     autoload :FaceDetector, 'aphrodite/bot/face_detector'
+    autoload :Classificator, 'aphrodite/bot/classificator'
   end
 end

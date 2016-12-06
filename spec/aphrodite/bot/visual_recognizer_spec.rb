@@ -3,15 +3,15 @@ require 'pry'
 
 describe Aphrodite::Bot::VisualRecognizer do
 
-  it 'parses #classify_by_url response' do
-    allow(Aphrodite::Bot::VisualRecognizer).to receive(:get).and_return(ExampleResponse.new("classify_by_url"))
+  it 'parses #classify_from_url response' do
+    allow(Aphrodite::Bot::VisualRecognizer).to receive(:get).and_return(ExampleResponse.new("classify_from_url"))
 
     # With only required params
     params = {
       url: "https://avatars0.githubusercontent.com/u/2523244?v=3&s=200"
     }
 
-    response = Aphrodite::Bot::VisualRecognizer.classify_by_url(params)
+    response = Aphrodite::Bot::VisualRecognizer.classify_from_url(params)
 
     #Response attributes
     expect(response.custom_classes).to eq 0
@@ -148,14 +148,14 @@ describe Aphrodite::Bot::VisualRecognizer do
     end
 
     def body
-      return classify_by_url_response if @method == "classify_by_url"
+      return classify_from_url_response if @method == "classify_from_url"
       return classify_with_single_image_file_response if @method == "classify_with_single_image_file"
       return classify_with_an_images_zip_response if @method == "classify_with_an_images_zip"
     end
 
     private
 
-      def classify_by_url_response
+      def classify_from_url_response
         {"custom_classes"=>0,
          "images"=>
           [{"classifiers"=>
