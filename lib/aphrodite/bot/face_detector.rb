@@ -23,10 +23,8 @@ module Aphrodite
                         headers: default_face_detector_headers.merge(headers),
                         query: default_face_detector_options.merge(options))
 
-
-
         parsed_response = JSON.parse(response.body)
-        return parsed_response if response.success?
+        return Aphrodite::Bot::FaceDetector::Response.new(parsed_response) if response.success?
 
         raise_exception(response.code, response.body)
       end
