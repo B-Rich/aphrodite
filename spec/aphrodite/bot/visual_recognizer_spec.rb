@@ -26,6 +26,7 @@ describe Aphrodite::Bot::VisualRecognizer do
     expect(image.classifiers).to be_a_kind_of(Array)
     expect(image.resolved_url).to eq("https://avatars0.githubusercontent.com/u/2523244?v=3&s=200")
     expect(image.source_url).to eq("https://avatars0.githubusercontent.com/u/2523244?v=3&s=200")
+    expect(image).to_not respond_to(:image)
 
     #Classifier
     classifier = image.classifiers[0]
@@ -67,6 +68,8 @@ describe Aphrodite::Bot::VisualRecognizer do
     expect(image).to be_a_kind_of(Aphrodite::Bot::VisualRecognizer::Image)
     expect(image.classifiers).to be_a_kind_of(Array)
     expect(image.image).to eq("profile.jpg")
+    expect(image).to_not respond_to(:resolved_url)
+    expect(image).to_not respond_to(:source_url)
 
     #Classifier
     classifier = image.classifiers[0]
@@ -108,14 +111,17 @@ describe Aphrodite::Bot::VisualRecognizer do
     expect(image).to be_a_kind_of(Aphrodite::Bot::VisualRecognizer::Image)
     expect(image.classifiers).to be_a_kind_of(Array)
     expect(image.image).to eq("Archive.zip/profile.jpg")
-
-
+    expect(image).to_not respond_to(:resolved_url)
+    expect(image).to_not respond_to(:source_url)
 
     #image with error
     image_with_error = images[1]
     expect(image_with_error).to be_a_kind_of(Aphrodite::Bot::VisualRecognizer::Image)
-    expect(image_with_error.classifiers).to be nil
     expect(image_with_error.image).to eq("Archive.zip/__MACOSX/._profile.jpg")
+    expect(image_with_error).to_not respond_to(:classifiers)
+    expect(image_with_error).to_not respond_to(:resolved_url)
+    expect(image_with_error).to_not respond_to(:source_url)
+    
     error = image_with_error.error
     expect(error).to be_a_kind_of(Aphrodite::Bot::VisualRecognizer::ImageError)
     expect(error.description).to eq("Invalid image data. Supported formats are JPG and PNG.")
