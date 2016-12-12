@@ -5,7 +5,7 @@ module Aphrodite
     class VisualRecognizer < Olimpo::Base
       headers 'Content-Type' => 'application/json'
 
-      def self.classify_by_url(params, options = {}, headers = {})
+      def self.classify_from_url(params, options = {}, headers = {})
         response = get("/v3/classify",
                         headers: default_visual_recognizer_headers.merge(headers),
                         query: default_visual_recognizer_options.merge(params).merge(options))
