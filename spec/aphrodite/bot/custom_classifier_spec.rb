@@ -5,7 +5,7 @@ describe Aphrodite::Bot::CustomClassifier do
   describe "API Methods" do
     describe ".create" do
       before :each do
-        stub_response = CreateCustomClassifierExampleResponse.new
+        stub_response = CustomClassifierExampleResponse.new
         allow(Aphrodite::Bot::CustomClassifier).to receive(:post).and_return(stub_response)
         allow(File).to receive(:new).and_return("")
       end
@@ -16,18 +16,29 @@ describe Aphrodite::Bot::CustomClassifier do
 
     describe ".all" do
       before :each do
-        stub_response = RetrieveListOfCustomClassifiersExampleResponse.new
+        stub_response = ListOfCustomClassifiersExampleResponse.new
         allow(Aphrodite::Bot::CustomClassifier).to receive(:get).and_return(stub_response)
       end
       it "should return a list of the custom classifiers" do
         expect(Aphrodite::Bot::CustomClassifier.all).to be_a_kind_of(Aphrodite::Bot::GetClassifiersTopLevelVerbose)
       end
     end
+
+    describe ".find" do
+      before :each do
+        stub_response = CustomClassifierExampleResponse.new
+        allow(Aphrodite::Bot::CustomClassifier).to receive(:get).and_return(stub_response)
+      end
+      it "should return information about a specific classifier" do
+        custom_classifier_id = 0
+        expect(Aphrodite::Bot::CustomClassifier.find(custom_classifier_id)).to be_a_kind_of(Aphrodite::Bot::GetClassifiersPerClassifierVerbose)
+      end
+    end
   end
 end
 
 
-class CreateCustomClassifierExampleResponse
+class CustomClassifierExampleResponse
   def body
     '{
       "classifiers": [
@@ -53,7 +64,7 @@ class CreateCustomClassifierExampleResponse
   end
 end
 
-class RetrieveListOfCustomClassifiersExampleResponse
+class ListOfCustomClassifiersExampleResponse
   def body
     '{
       "classifiers": [

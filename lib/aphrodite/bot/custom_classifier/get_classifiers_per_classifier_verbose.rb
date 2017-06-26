@@ -13,7 +13,7 @@ module Aphrodite
         @explanation = classifier["explanation"]
         @created = classifier["created"]
         @classes = []
-        build_classes(classifier["classes"])
+        build_classes(classifier["classes"]) if classifier["classes"] != nil
       end
 
       def build_classes(classes)

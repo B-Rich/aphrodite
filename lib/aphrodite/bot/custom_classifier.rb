@@ -19,6 +19,14 @@ module Aphrodite
         return Aphrodite::Bot::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
         raise_exception(response.code, response.body)
       end
+
+      def self.find(id, query = {})
+        response = get("/classifier/#{id}?version=2016-05-20", query: query)
+
+        parsed_response = JSON.parse(response.body)
+        return Aphrodite::Bot::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
+        raise_exception(response.code, response.body)
+      end
     end
   end
 end
