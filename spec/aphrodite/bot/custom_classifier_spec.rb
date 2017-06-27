@@ -9,7 +9,7 @@ describe Aphrodite::Bot::CustomClassifier do
         allow(Aphrodite::Bot::CustomClassifier).to receive(:post).and_return(stub_response)
         allow(File).to receive(:new).and_return("")
 
-        expect(Aphrodite::Bot::CustomClassifier.create(file: "")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersTopLevelVerbose)
+        expect(Aphrodite::Bot::CustomClassifier.create(file: "", api_key: "", version: "")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersTopLevelVerbose)
       end
     end
 
@@ -18,13 +18,13 @@ describe Aphrodite::Bot::CustomClassifier do
         stub_response = ListOfBriefCustomClassifiersExampleResponse.new
         allow(Aphrodite::Bot::CustomClassifier).to receive(:get).and_return(stub_response)
 
-        expect(Aphrodite::Bot::CustomClassifier.all()).to be_a_kind_of(Aphrodite::Bot::GetClassifiersTopLevelBrief)
+        expect(Aphrodite::Bot::CustomClassifier.all(api_key: "", version: "")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersTopLevelBrief)
       end
       it "should return a verbose list of the custom classifiers" do
         stub_response = ListOfVerboseCustomClassifiersExampleResponse.new
         allow(Aphrodite::Bot::CustomClassifier).to receive(:get).and_return(stub_response)
 
-        expect(Aphrodite::Bot::CustomClassifier.all(verbose: true)).to be_a_kind_of(Aphrodite::Bot::GetClassifiersTopLevelVerbose)
+        expect(Aphrodite::Bot::CustomClassifier.all(api_key: "", version: "", verbose: true)).to be_a_kind_of(Aphrodite::Bot::GetClassifiersTopLevelVerbose)
       end
     end
 
@@ -33,7 +33,7 @@ describe Aphrodite::Bot::CustomClassifier do
         stub_response = CustomClassifierExampleResponse.new
         allow(Aphrodite::Bot::CustomClassifier).to receive(:get).and_return(stub_response)
 
-        expect(Aphrodite::Bot::CustomClassifier.find("")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersPerClassifierVerbose)
+        expect(Aphrodite::Bot::CustomClassifier.find(api_key: "", version: "", id: "")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersPerClassifierVerbose)
       end
     end
 
@@ -43,7 +43,7 @@ describe Aphrodite::Bot::CustomClassifier do
         allow(Aphrodite::Bot::CustomClassifier).to receive(:post).and_return(stub_response)
         allow(File).to receive(:new).and_return("")
 
-        expect(Aphrodite::Bot::CustomClassifier.update(file: "")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersPerClassifierVerbose)
+        expect(Aphrodite::Bot::CustomClassifier.update(file: "", api_key: "", version: "", id: "")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersPerClassifierVerbose)
       end
     end
 
@@ -51,8 +51,8 @@ describe Aphrodite::Bot::CustomClassifier do
       it "should delete a custom classifier" do
         stub_response = DeleteCustomClassifierExampleResponse.new
         allow(Aphrodite::Bot::CustomClassifier).to receive(:delete).and_return(stub_response)
-        
-        expect(Aphrodite::Bot::CustomClassifier.destroy("")).to eq(true)
+
+        expect(Aphrodite::Bot::CustomClassifier.destroy(api_key: "", version: "", id: "")).to eq(true)
       end
     end
   end

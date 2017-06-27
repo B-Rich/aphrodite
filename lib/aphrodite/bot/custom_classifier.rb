@@ -6,7 +6,7 @@ module Aphrodite
     class CustomClassifier < Olimpo::Base
       def self.create(query = {}, formData = {})
         input_file = File.new(query[:file])
-        response = post("/classifier?version=2016-05-20", query: query, formData: formData)
+        response = post("/classifiers?", query: query, formData: formData)
 
         parsed_response = JSON.parse(response.body)
         return Aphrodite::Bot::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
@@ -14,10 +14,10 @@ module Aphrodite
       end
 
       def self.all(query = {})
-        response = get("/classifier?version=2016-05-20", query: query)
+        response = get("/classifiers?", query: query)
         parsed_response = JSON.parse(response.body)
 
-        if(query[:verbose].nil?)
+        if(!query[:verbose])
           return Aphrodite::Bot::GetClassifiersTopLevelBrief.new(parsed_response) if response.success?
         else
           return Aphrodite::Bot::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
@@ -26,7 +26,7 @@ module Aphrodite
       end
 
       def self.find(id, query = {})
-        response = get("/classifier/#{id}?version=2016-05-20", query: query)
+        response = get("/classifier/#{id}", query: query)
 
         parsed_response = JSON.parse(response.body)
         return Aphrodite::Bot::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
@@ -35,7 +35,7 @@ module Aphrodite
 
       def self.update(id, query = {}, formData = {})
         input_file = File.new(query[:file])
-        response = post("/classifier/#{id}?version=2016-05-20", query: query, formData: formData)
+        response = post("/classifier/#{id}", query: query, formData: formData)
         parsed_response = JSON.parse(response.body)
 
         return Aphrodite::Bot::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
@@ -43,7 +43,7 @@ module Aphrodite
       end
 
       def self.destroy(id, query = {})
-        response = delete("/classifier/#{id}?version=2016-05-20", query: query)
+        response = delete("/classifier/#{id}", query: query)
         response.success?
       end
     end
