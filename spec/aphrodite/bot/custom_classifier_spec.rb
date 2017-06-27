@@ -30,8 +30,28 @@ describe Aphrodite::Bot::CustomClassifier do
         allow(Aphrodite::Bot::CustomClassifier).to receive(:get).and_return(stub_response)
       end
       it "should return information about a specific classifier" do
-        custom_classifier_id = 0
-        expect(Aphrodite::Bot::CustomClassifier.find(custom_classifier_id)).to be_a_kind_of(Aphrodite::Bot::GetClassifiersPerClassifierVerbose)
+        expect(Aphrodite::Bot::CustomClassifier.find("")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersPerClassifierVerbose)
+      end
+    end
+
+    describe ".update" do
+      before :each do
+        stub_response = CustomClassifierExampleResponse.new
+        allow(Aphrodite::Bot::CustomClassifier).to receive(:post).and_return(stub_response)
+        allow(File).to receive(:new).and_return("")
+      end
+      it "should return information about the updated custom classifier" do
+        expect(Aphrodite::Bot::CustomClassifier.update(file: "")).to be_a_kind_of(Aphrodite::Bot::GetClassifiersPerClassifierVerbose)
+      end
+    end
+
+    describe ".destroy" do
+      before :each do
+        stub_response = DeleteCustomClassifierExampleResponse.new
+        allow(Aphrodite::Bot::CustomClassifier).to receive(:delete).and_return(stub_response)
+      end
+      it "should delete a custom classifier" do
+        expect(Aphrodite::Bot::CustomClassifier.destroy("")).to eq(true)
       end
     end
   end
@@ -98,6 +118,12 @@ class ListOfCustomClassifiersExampleResponse
     }'
   end
 
+  def success?
+    true
+  end
+end
+
+class DeleteCustomClassifierExampleResponse
   def success?
     true
   end

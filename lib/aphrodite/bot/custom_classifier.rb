@@ -27,6 +27,20 @@ module Aphrodite
         return Aphrodite::Bot::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
         raise_exception(response.code, response.body)
       end
+
+      def self.update(id, query = {}, formData = {})
+        input_file = File.new(query[:file])
+        response = post("/classifier/#{id}?version=2016-05-20", query: query, formData: formData)
+        parsed_response = JSON.parse(response.body)
+
+        return Aphrodite::Bot::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
+        raise_exception(response.code, response.body)
+      end
+
+      def self.destroy(id, query = {})
+        response = delete("/classifier/#{id}?version=2016-05-20", query: query)
+        response.success?
+      end
     end
   end
 end
