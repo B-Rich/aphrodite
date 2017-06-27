@@ -1,5 +1,6 @@
 require "aphrodite/bot/version"
 require "olimpo"
+require 'pry'
 
 module Aphrodite
   module Bot
