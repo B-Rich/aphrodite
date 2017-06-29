@@ -4,12 +4,12 @@ require "aphrodite/bot/custom_classifier/get_classifiers_top_level_verbose"
 module Aphrodite
   module Bot
     class CustomClassifier < Olimpo::Base
-      def self.create(query = {}, formData = {})
-        input_file = File.new(query[:file])
-        response = post("/classifiers?", query: query, formData: formData)
+      def self.create(query = {}, form_data = {})
+        input_file = File.new(form_data[:file])
+        response = post("/classifiers?", query: query, form_data: form_data)
 
         parsed_response = JSON.parse(response.body)
-        return Aphrodite::Bot::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
+        return Aphrodite::Bot::CustomClassifier::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
         raise_exception(response.code, response.body)
       end
 
@@ -18,9 +18,9 @@ module Aphrodite
         parsed_response = JSON.parse(response.body)
 
         if(!query[:verbose])
-          return Aphrodite::Bot::GetClassifiersTopLevelBrief.new(parsed_response) if response.success?
+          return Aphrodite::Bot::CustomClassifier::GetClassifiersTopLevelBrief.new(parsed_response) if response.success?
         else
-          return Aphrodite::Bot::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
+          return Aphrodite::Bot::CustomClassifier::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
         end
         raise_exception(response.code, response.body)
       end
@@ -29,16 +29,16 @@ module Aphrodite
         response = get("/classifier/#{id}", query: query)
 
         parsed_response = JSON.parse(response.body)
-        return Aphrodite::Bot::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
+        return Aphrodite::Bot::CustomClassifier::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
         raise_exception(response.code, response.body)
       end
 
-      def self.update(id, query = {}, formData = {})
-        input_file = File.new(query[:file])
-        response = post("/classifier/#{id}", query: query, formData: formData)
+      def self.update(id, query = {}, form_data = {})
+        input_file = File.new(form_data[:file])
+        response = post("/classifier/#{id}", query: query, form_data: form_data)
         parsed_response = JSON.parse(response.body)
 
-        return Aphrodite::Bot::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
+        return Aphrodite::Bot::CustomClassifier::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
         raise_exception(response.code, response.body)
       end
 
