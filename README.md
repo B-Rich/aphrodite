@@ -4,10 +4,10 @@
 ![Made with Love by Icalia Labs](https://img.shields.io/badge/With%20love%20by-Icalia%20Labs-ff3434.svg)
 
 <div style="text-align:center">
-  <img src="assets/logo.png" width="980">
+  <img src="assets/logo.png" width="880">
 </div>
 
-Aphrodite is an open source ruby gem that acts as a wrapper for IBM Watson's [Visual Recognition service API](https://www.ibm.com/watson/developercloud/tone-analyzer.html).
+Aphrodite is an open source ruby gem that acts as a wrapper for IBM Watson's [Visual Recognition service API](https://www.ibm.com/watson/developercloud/visual-recognition.html).
 
 ## Installation
 
@@ -47,11 +47,32 @@ end
 ```
 
 ### Classify an Image
+In order to classify an image from an URL, simply use the `Aphrodite::Bot::VisualRecognizer` class' classify_from_url method:
+
+```ruby
+Aphrodite::Bot::VisualRecognizer.classify_from_url()
+```
+
+In order to classify images from a file, simply use the `Aphrodite::Bot::VisualRecognizer` class' classify method:
+
+```ruby
+Aphrodite::Bot::VisualRecognizer.classify()
+```
 
 [Check Watson's API reference](https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#classify_an_image) for details on how to classify an image.
 
 ### Detect faces
+In order to detect a face from an URL, simply use the `Aphrodite::Bot::FaceDetector` class' detect_from_url method:
 
+```ruby
+Aphrodite::Bot::FaceDetector.detect_from_url()
+```
+
+In order to detect faces from a file, simply use the `Aphrodite::Bot::FaceDetector` class' detect method:
+
+```ruby
+Aphrodite::Bot::FaceDetector.detect()
+```
 [Check Watson's API reference](https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#detect_faces) for details on how to detect faces.
 
 ### Create a new Classifier
@@ -102,8 +123,8 @@ In order to update a specific classifier, simply use the `Aphrodite::Bot::Custom
 
 ```ruby
 Aphrodite::Bot::CustomClassifier.update(id: SOME_ID,
-                                      {api_key: SOME_API_KEY, version: SOME_VERSION},
-                                      {file: SOME_FILE})
+                                       {api_key: SOME_API_KEY, version: SOME_VERSION},
+                                       {file: SOME_FILE})
 ```
 
 `Aphrodite::Bot::CustomClassifier.update` method returns an instance of `Aphrodite::Bot::GetClassifiersPerClassifierVerbose`.
