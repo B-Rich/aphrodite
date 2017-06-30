@@ -43,6 +43,7 @@ Then add the following configuration block:
 
 Aphrodite::Bot.configure do |config|
 	config.base_uri = "https://gateway-a.watsonplatform.net/visual-recognition/api/v3"
+  config.api_key = API_KEY
 end
 ```
 
@@ -79,8 +80,8 @@ Aphrodite::Bot::FaceDetector.detect()
 In order to create a new classifier, simply use the `Aphrodite::Bot::CustomClassifier` class' create method:
 
 ```ruby
-Aphrodite::Bot::CustomClassifier.create({api_key: SOME_API_KEY, version: SOME_VERSION},
-                                        {file: SOME_FILE, name: SOME_NAME})
+Aphrodite::Bot::CustomClassifier.create({version: API_VERSION},
+                                        {classname_positive_examples: ZIP_FILE, name: SOME_NAME})
 ```
 `Aphrodite::Bot::CustomClassifier.create` method returns an instance of `Aphrodite::Bot::GetClassifiersTopLevelVerbose`.
 
@@ -90,17 +91,14 @@ Aphrodite::Bot::CustomClassifier.create({api_key: SOME_API_KEY, version: SOME_VE
 In order to get a brief list about the created classifiers, simply use the `Aphrodite::Bot::CustomClassifier` class' all method:
 
 ```ruby
-Aphrodite::Bot::CustomClassifier.all(api_key: SOME_API_KEY,
-                                     version: SOME_VERSION)
+Aphrodite::Bot::CustomClassifier.all(version: API_VERSION)
 ```
 `Aphrodite::Bot::CustomClassifier.all` method returns an instance of `Aphrodite::Bot::GetClassifiersTopLevelBrief`.
 
 In order to get a detailed list about the created classifiers, simply use the `Aphrodite::Bot::CustomClassifier` class' all method:
 
 ```ruby
-Aphrodite::Bot::CustomClassifier.all(api_key: SOME_API_KEY,
-                                     version: SOME_VERSION,
-                                     verbose: true)
+Aphrodite::Bot::CustomClassifier.all(version: API_VERSION, verbose: true)
 ```
 `Aphrodite::Bot::CustomClassifier.all` method with verbose returns an instance of `Aphrodite::Bot::GetClassifiersTopLevelVerbose`.
 
@@ -110,8 +108,7 @@ Aphrodite::Bot::CustomClassifier.all(api_key: SOME_API_KEY,
 In order to get information about a specific classifier, simply use the `Aphrodite::Bot::CustomClassifier` class' find method:
 
 ```ruby
-Aphrodite::Bot::CustomClassifier.find(id: SOME_ID,
-                                      {api_key: SOME_API_KEY, version: SOME_VERSION})
+Aphrodite::Bot::CustomClassifier.find(id: CLASSIFIER_ID, {version: API_VERSION})
 ```
 
 `Aphrodite::Bot::CustomClassifier.find` method returns an instance of `Aphrodite::Bot::GetClassifiersPerClassifierVerbose`.
@@ -122,9 +119,8 @@ Aphrodite::Bot::CustomClassifier.find(id: SOME_ID,
 In order to update a specific classifier, simply use the `Aphrodite::Bot::CustomClassifier` class' update method:
 
 ```ruby
-Aphrodite::Bot::CustomClassifier.update(id: SOME_ID,
-                                       {api_key: SOME_API_KEY, version: SOME_VERSION},
-                                       {file: SOME_FILE})
+Aphrodite::Bot::CustomClassifier.update(id: CLASSIFIER_ID, {version: SOME_VERSION},
+                                        {classname_positive_examples: ZIP_FILE})
 ```
 
 `Aphrodite::Bot::CustomClassifier.update` method returns an instance of `Aphrodite::Bot::GetClassifiersPerClassifierVerbose`.
@@ -135,8 +131,7 @@ Aphrodite::Bot::CustomClassifier.update(id: SOME_ID,
 In order to delete a specific classifier, simply use the `Aphrodite::Bot::CustomClassifier` class' destroy method:
 
 ```ruby
-Aphrodite::Bot::CustomClassifier.destroy(id: SOME_ID,
-                                         {api_key: SOME_API_KEY, version: SOME_VERSION})
+Aphrodite::Bot::CustomClassifier.destroy(id: CLASSIFIER_ID, {version: API_VERSION})
 ```
 This method returns true if the Custom Classifier was successfully destroyed through Watson's API and false otherwise.
 
