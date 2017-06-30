@@ -5,8 +5,7 @@ module Aphrodite
   module Bot
     class CustomClassifier < Olimpo::Base
       def self.create(query = {}, form_data = {})
-        input_file = File.new(form_data[:file])
-        response = post("/classifiers?", query: query, form_data: form_data)
+        response = post("/classifiers", query: query, form_data: form_data)
 
         parsed_response = JSON.parse(response.body)
         return Aphrodite::Bot::CustomClassifier::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
@@ -14,7 +13,7 @@ module Aphrodite
       end
 
       def self.all(query = {})
-        response = get("/classifiers?", query: query)
+        response = get("/classifiers", query: query)
         parsed_response = JSON.parse(response.body)
 
         if(!query[:verbose])
@@ -26,7 +25,7 @@ module Aphrodite
       end
 
       def self.find(id, query = {})
-        response = get("/classifier/#{id}", query: query)
+        response = get("/classifiers/#{id}", query: query)
 
         parsed_response = JSON.parse(response.body)
         return Aphrodite::Bot::CustomClassifier::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
@@ -34,8 +33,8 @@ module Aphrodite
       end
 
       def self.update(id, query = {}, form_data = {})
-        input_file = File.new(form_data[:file])
-        response = post("/classifier/#{id}", query: query, form_data: form_data)
+        form_data[:file] = File.new(form_data[:file])
+        response = post("/classifiers/#{id}", query: query, form_data: form_data)
         parsed_response = JSON.parse(response.body)
 
         return Aphrodite::Bot::CustomClassifier::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
@@ -43,7 +42,7 @@ module Aphrodite
       end
 
       def self.destroy(id, query = {})
-        response = delete("/classifier/#{id}", query: query)
+        response = delete("/classifiers/#{id}", query: query)
         response.success?
       end
     end
