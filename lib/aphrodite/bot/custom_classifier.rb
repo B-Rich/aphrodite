@@ -5,10 +5,10 @@ module Aphrodite
   module Bot
     class CustomClassifier < Olimpo::Base
       def self.create(query = {}, form_data = {})
-        response = post("/classifiers", query: query, form_data: form_data)
+        response = post("/classifiers", query: query, body: form_data)
 
         parsed_response = JSON.parse(response.body)
-        return Aphrodite::Bot::CustomClassifier::GetClassifiersTopLevelVerbose.new(parsed_response) if response.success?
+        return Aphrodite::Bot::CustomClassifier::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
         raise_exception(response.code, response.body)
       end
 
@@ -33,8 +33,7 @@ module Aphrodite
       end
 
       def self.update(id, query = {}, form_data = {})
-        form_data[:file] = File.new(form_data[:file])
-        response = post("/classifiers/#{id}", query: query, form_data: form_data)
+        response = post("/classifiers/#{id}", query: query, body: form_data)
         parsed_response = JSON.parse(response.body)
 
         return Aphrodite::Bot::CustomClassifier::GetClassifiersPerClassifierVerbose.new(parsed_response) if response.success?
