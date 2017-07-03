@@ -47,7 +47,7 @@ describe Aphrodite::Bot::VisualRecognizer do
     }
 
     allow(Aphrodite::Bot::VisualRecognizer).to receive(:post)
-                                                .with("/v3/classify",
+                                                .with("/classify",
                                                       {:body=> params,
                                                        :headers=> {"Accept-Language"=>"en"},
                                                        :query=> {:version=>"2016-09-20"}})
@@ -90,7 +90,7 @@ describe Aphrodite::Bot::VisualRecognizer do
       images_file: images_zip_fixture
     }
 
-    allow(Aphrodite::Bot::VisualRecognizer).to receive(:post).with("/v3/classify",
+    allow(Aphrodite::Bot::VisualRecognizer).to receive(:post).with("/classify",
                                                                     {:body => params,
                                                                      :headers => {"Accept-Language"=>"en"},
                                                                      :query => {:version=>"2016-09-20"}})
@@ -121,7 +121,7 @@ describe Aphrodite::Bot::VisualRecognizer do
     expect(image_with_error).to_not respond_to(:classifiers)
     expect(image_with_error).to_not respond_to(:resolved_url)
     expect(image_with_error).to_not respond_to(:source_url)
-    
+
     error = image_with_error.error
     expect(error).to be_a_kind_of(Aphrodite::Bot::VisualRecognizer::ImageError)
     expect(error.description).to eq("Invalid image data. Supported formats are JPG and PNG.")

@@ -57,7 +57,7 @@ describe Aphrodite::Bot::FaceDetector do
     }
 
     allow(Aphrodite::Bot::FaceDetector).to receive(:post)
-                                                .with("/v3/detect_faces",
+                                                .with("/detect_faces",
                                                       {:body=> params,
                                                        :headers=> {"Accept-Language"=>"en"},
                                                        :query=> {:version=>"2016-09-20"}})
@@ -111,7 +111,7 @@ describe Aphrodite::Bot::FaceDetector do
     }
 
     allow(Aphrodite::Bot::FaceDetector).to receive(:post)
-                                                .with("/v3/detect_faces",
+                                                .with("/detect_faces",
                                                       {:body=> params,
                                                        :headers=> {"Accept-Language"=>"en"},
                                                        :query=> {:version=>"2016-09-20"}})
