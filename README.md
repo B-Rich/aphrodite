@@ -42,22 +42,22 @@ Then add the following configuration block:
 ```ruby
 
 Aphrodite::Bot.configure do |config|
-	config.base_uri = "https://gateway-a.watsonplatform.net/visual-recognition/api/v3"
+  config.base_uri = "https://gateway-a.watsonplatform.net/visual-recognition/api/v3"
   config.api_key = API_KEY
 end
 ```
 
 ### Classify an Image
-In order to classify an image from an URL, simply use the `Aphrodite::Bot::VisualRecognizer` class' classify_from_url method:
+In order to classify an image(.jpg, or .png) from an URL, simply use the `Aphrodite::Bot::VisualRecognizer` class' classify_from_url method:
 
 ```ruby
-Aphrodite::Bot::VisualRecognizer.classify_from_url()
+Aphrodite::Bot::VisualRecognizer.classify_from_url({ url: SOME_URL })
 ```
 
-In order to classify images from a file, simply use the `Aphrodite::Bot::VisualRecognizer` class' classify method:
+In order to classify and image(.jpg, or .png) or compressed(.zip) file, simply use the `Aphrodite::Bot::VisualRecognizer` class' classify method:
 
 ```ruby
-Aphrodite::Bot::VisualRecognizer.classify()
+Aphrodite::Bot::VisualRecognizer.classify({ images_file: File.open(IMAGE_PATH) })
 ```
 
 [Check Watson's API reference](https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#classify_an_image) for details on how to classify an image.
@@ -66,14 +66,15 @@ Aphrodite::Bot::VisualRecognizer.classify()
 In order to detect a face from an URL, simply use the `Aphrodite::Bot::FaceDetector` class' detect_from_url method:
 
 ```ruby
-Aphrodite::Bot::FaceDetector.detect_from_url()
+Aphrodite::Bot::FaceDetector.detect_from_url({ url: SOME_URL })
 ```
 
 In order to detect faces from a file, simply use the `Aphrodite::Bot::FaceDetector` class' detect method:
 
 ```ruby
-Aphrodite::Bot::FaceDetector.detect()
+Aphrodite::Bot::FaceDetector.detect({ images_file: File.open(IMAGE_PATH) })
 ```
+
 [Check Watson's API reference](https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#detect_faces) for details on how to detect faces.
 
 ### Create a new Classifier
