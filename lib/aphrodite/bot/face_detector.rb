@@ -5,8 +5,8 @@ module Aphrodite
     class FaceDetector < Olimpo::Base
       headers 'Content-Type' => 'application/json'
 
-      def self.detect_from_url(params, options = {}, headers = {})
-        response = get("/v3/detect_faces",
+      def self.detect_from_url(params = {}, options = {}, headers = {})
+        response = get("/detect_faces",
                         headers: default_face_detector_headers.merge(headers),
                         query: default_face_detector_options.merge(params).merge(options))
 
@@ -17,8 +17,8 @@ module Aphrodite
         raise_exception(response.code, response.body)
       end
 
-      def self.detect(params, options = {}, headers = {})
-        response = post("/v3/detect_faces",
+      def self.detect(params = {}, options = {}, headers = {})
+        response = post("/detect_faces",
                         body: params,
                         headers: default_face_detector_headers.merge(headers),
                         query: default_face_detector_options.merge(options))

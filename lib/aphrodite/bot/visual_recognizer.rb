@@ -5,12 +5,10 @@ module Aphrodite
     class VisualRecognizer < Olimpo::Base
       headers 'Content-Type' => 'application/json'
 
-      def self.classify_from_url(params, options = {}, headers = {})
-        response = get("/v3/classify",
+      def self.classify_from_url(params = {}, options = {}, headers = {})
+        response = get("/classify",
                         headers: default_visual_recognizer_headers.merge(headers),
                         query: default_visual_recognizer_options.merge(params).merge(options))
-
-
 
         parsed_response = JSON.parse(response.body)
 
@@ -19,8 +17,8 @@ module Aphrodite
         raise_exception(response.code, response.body)
       end
 
-      def self.classify(params, options = {}, headers = {})
-        response = post("/v3/classify",
+      def self.classify(params = {}, options = {}, headers = {})
+        response = post("/classify",
                         body: params,
                         headers: default_visual_recognizer_headers.merge(headers),
                         query: default_visual_recognizer_options.merge(options))
